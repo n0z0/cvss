@@ -1,34 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CVSS v3.1 Calculator for Beginners</title>
-    <meta name="description" content="A beginner-friendly Common Vulnerability Scoring System (CVSS) v3.1 calculator to help you understand vulnerability severity.">
+    <meta name="description"
+        content="A beginner-friendly Common Vulnerability Scoring System (CVSS) v3.1 calculator to help you understand vulnerability severity.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <div class="app-container">
         <header class="app-header">
-            <h1>CVSS v3.1 Calculator</h1>
+            <h1>CVSS Calculator</h1>
             <p>Pelajari cara menghitung tingkat keparahan celah keamanan (kerentanan) dengan mudah.</p>
         </header>
 
+        <div class="version-toggle">
+            <button class="toggle-btn active" id="btn-v3">CVSS v3.1</button>
+            <button class="toggle-btn" id="btn-v4">CVSS v4.0 <span class="badge">Baru</span></button>
+        </div>
+
         <main class="calculator-grid">
-            <div class="metrics-container">
+            <!-- CVSS 3.1 Metrics -->
+            <div class="metrics-container" id="container-v3">
                 <!-- Base Metrics Group -->
                 <section class="metric-group">
                     <h2>Base Metrics (Metrik Dasar)</h2>
-                    <p class="section-desc">Karakteristik kerentanan yang konstan seiring waktu dan lingkungan pengguna.</p>
+                    <p class="section-desc">Karakteristik kerentanan yang konstan seiring waktu dan lingkungan pengguna.
+                    </p>
 
                     <!-- Attack Vector -->
                     <div class="metric-item" id="metric-av">
                         <div class="metric-header">
                             <h3>Attack Vector (AV) / Vektor Serangan</h3>
-                            <button class="info-btn" aria-label="Info" data-tooltip="Dari mana kerentanan ini bisa dieksploitasi? Semakin jauh (Network), semakin parah.">?</button>
+                            <button class="info-btn" aria-label="Info"
+                                data-tooltip="Dari mana kerentanan ini bisa dieksploitasi? Semakin jauh (Network), semakin parah.">?</button>
                         </div>
                         <div class="options-grid">
                             <label class="radio-option">
@@ -39,12 +50,14 @@
                             <label class="radio-option">
                                 <input type="radio" name="AV" value="A">
                                 <span class="radio-btn">Adjacent (A)</span>
-                                <span class="option-desc">Harus berada di jaringan yang sama (misal: WiFi yang sama).</span>
+                                <span class="option-desc">Harus berada di jaringan yang sama (misal: WiFi yang
+                                    sama).</span>
                             </label>
                             <label class="radio-option">
                                 <input type="radio" name="AV" value="L">
                                 <span class="radio-btn">Local (L)</span>
-                                <span class="option-desc">Harus punya akses ke sistem secara lokal (keyboard/shell).</span>
+                                <span class="option-desc">Harus punya akses ke sistem secara lokal
+                                    (keyboard/shell).</span>
                             </label>
                             <label class="radio-option">
                                 <input type="radio" name="AV" value="P">
@@ -58,7 +71,8 @@
                     <div class="metric-item" id="metric-ac">
                         <div class="metric-header">
                             <h3>Attack Complexity (AC) / Kompleksitas Serangan</h3>
-                            <button class="info-btn" aria-label="Info" data-tooltip="Seberapa sulit atau butuh kondisi khusus untuk menyerang?">?</button>
+                            <button class="info-btn" aria-label="Info"
+                                data-tooltip="Seberapa sulit atau butuh kondisi khusus untuk menyerang?">?</button>
                         </div>
                         <div class="options-grid">
                             <label class="radio-option">
@@ -78,7 +92,8 @@
                     <div class="metric-item" id="metric-pr">
                         <div class="metric-header">
                             <h3>Privileges Required (PR) / Hak Akses</h3>
-                            <button class="info-btn" aria-label="Info" data-tooltip="Apakah penyerang butuh akun khusus sebelum menyerang?">?</button>
+                            <button class="info-btn" aria-label="Info"
+                                data-tooltip="Apakah penyerang butuh akun khusus sebelum menyerang?">?</button>
                         </div>
                         <div class="options-grid">
                             <label class="radio-option">
@@ -103,7 +118,8 @@
                     <div class="metric-item" id="metric-ui">
                         <div class="metric-header">
                             <h3>User Interaction (UI) / Interaksi Pengguna</h3>
-                            <button class="info-btn" aria-label="Info" data-tooltip="Apakah penyerang butuh korban untuk mengklik sesuatu?">?</button>
+                            <button class="info-btn" aria-label="Info"
+                                data-tooltip="Apakah penyerang butuh korban untuk mengklik sesuatu?">?</button>
                         </div>
                         <div class="options-grid">
                             <label class="radio-option">
@@ -123,7 +139,8 @@
                     <div class="metric-item" id="metric-s">
                         <div class="metric-header">
                             <h3>Scope (S) / Lingkup</h3>
-                            <button class="info-btn" aria-label="Info" data-tooltip="Apakah kerentanan di satu komponen bisa merusak komponen lain (misal: dari VM ke Host)?">?</button>
+                            <button class="info-btn" aria-label="Info"
+                                data-tooltip="Apakah kerentanan di satu komponen bisa merusak komponen lain (misal: dari VM ke Host)?">?</button>
                         </div>
                         <div class="options-grid">
                             <label class="radio-option">
@@ -143,7 +160,8 @@
                     <div class="metric-item" id="metric-c">
                         <div class="metric-header">
                             <h3>Confidentiality (C) / Kerahasiaan</h3>
-                            <button class="info-btn" aria-label="Info" data-tooltip="Seberapa parah kebocoran data yang terjadi?">?</button>
+                            <button class="info-btn" aria-label="Info"
+                                data-tooltip="Seberapa parah kebocoran data yang terjadi?">?</button>
                         </div>
                         <div class="options-grid">
                             <label class="radio-option">
@@ -168,7 +186,8 @@
                     <div class="metric-item" id="metric-i">
                         <div class="metric-header">
                             <h3>Integrity (I) / Integritas</h3>
-                            <button class="info-btn" aria-label="Info" data-tooltip="Seberapa parah penyerang bisa mengubah data?">?</button>
+                            <button class="info-btn" aria-label="Info"
+                                data-tooltip="Seberapa parah penyerang bisa mengubah data?">?</button>
                         </div>
                         <div class="options-grid">
                             <label class="radio-option">
@@ -193,7 +212,8 @@
                     <div class="metric-item" id="metric-a">
                         <div class="metric-header">
                             <h3>Availability (A) / Ketersediaan</h3>
-                            <button class="info-btn" aria-label="Info" data-tooltip="Apakah penyerang bisa membuat sistem mati atau tidak bisa diakses?">?</button>
+                            <button class="info-btn" aria-label="Info"
+                                data-tooltip="Apakah penyerang bisa membuat sistem mati atau tidak bisa diakses?">?</button>
                         </div>
                         <div class="options-grid">
                             <label class="radio-option">
@@ -216,17 +236,214 @@
                 </section>
             </div>
 
+            <!-- CVSS 4.0 Metrics -->
+            <div class="metrics-container" id="container-v4" style="display: none;">
+                <section class="metric-group">
+                    <h2>Base Metrics (Metrik Dasar v4.0)</h2>
+                    <p class="section-desc">Karakteristik kerentanan yang konstan seiring waktu. v4.0 memisahkan dampak
+                        pada sistem yang rentan (Vulnerable System) dan sistem selanjutnya (Subsequent System).</p>
+
+                    <!-- AV -->
+                    <div class="metric-item">
+                        <div class="metric-header">
+                            <h3>Attack Vector (AV) / Vektor Serangan</h3>
+                            <button class="info-btn" aria-label="Info"
+                                data-tooltip="Dari mana penyerang beraksi? N=Terjauh (Internet), P=Terdekat (Fisik).">?</button>
+                        </div>
+                        <div class="options-grid">
+                            <label class="radio-option"><input type="radio" name="v4_AV" value="N"><span
+                                    class="radio-btn">Network (N)</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_AV" value="A"><span
+                                    class="radio-btn">Adjacent (A)</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_AV" value="L"><span
+                                    class="radio-btn">Local (L)</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_AV" value="P"><span
+                                    class="radio-btn">Physical (P)</span></label>
+                        </div>
+                    </div>
+
+                    <!-- AC -->
+                    <div class="metric-item">
+                        <div class="metric-header">
+                            <h3>Attack Complexity (AC) / Kompleksitas</h3>
+                            <button class="info-btn" aria-label="Info"
+                                data-tooltip="Apakah butuh trik khusus untuk eksploitasi?">?</button>
+                        </div>
+                        <div class="options-grid">
+                            <label class="radio-option"><input type="radio" name="v4_AC" value="L"><span
+                                    class="radio-btn">Low (L)</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_AC" value="H"><span
+                                    class="radio-btn">High (H)</span></label>
+                        </div>
+                    </div>
+
+                    <!-- AT -->
+                    <div class="metric-item">
+                        <div class="metric-header">
+                            <h3>Attack Requirements (AT) / Syarat Serangan</h3>
+                            <button class="info-btn" aria-label="Info"
+                                data-tooltip="Kondisi di luar kendali penyerang yang harus dipenuhi (Metrik baru di v4.0).">?</button>
+                        </div>
+                        <div class="options-grid">
+                            <label class="radio-option"><input type="radio" name="v4_AT" value="N"><span
+                                    class="radio-btn">None (N)</span><span class="option-desc">Bisa kapan
+                                    saja.</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_AT" value="P"><span
+                                    class="radio-btn">Present (P)</span><span class="option-desc">Harus menunggu kondisi
+                                    tertentu.</span></label>
+                        </div>
+                    </div>
+
+                    <!-- PR -->
+                    <div class="metric-item">
+                        <div class="metric-header">
+                            <h3>Privileges Required (PR) / Hak Akses</h3>
+                            <button class="info-btn" aria-label="Info"
+                                data-tooltip="Butuh akun sebelum menyerang?">?</button>
+                        </div>
+                        <div class="options-grid">
+                            <label class="radio-option"><input type="radio" name="v4_PR" value="N"><span
+                                    class="radio-btn">None (N)</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_PR" value="L"><span
+                                    class="radio-btn">Low (L)</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_PR" value="H"><span
+                                    class="radio-btn">High (H)</span></label>
+                        </div>
+                    </div>
+
+                    <!-- UI -->
+                    <div class="metric-item">
+                        <div class="metric-header">
+                            <h3>User Interaction (UI) / Interaksi</h3>
+                            <button class="info-btn" aria-label="Info"
+                                data-tooltip="Apakah penyerang butuh korban untuk membuka email/link dll? v4.0 memisah pasif dan aktif.">?</button>
+                        </div>
+                        <div class="options-grid">
+                            <label class="radio-option"><input type="radio" name="v4_UI" value="N"><span
+                                    class="radio-btn">None (N)</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_UI" value="P"><span
+                                    class="radio-btn">Passive (P)</span><span class="option-desc">Korban hanya
+                                    berinteraksi ringan (misal sekadar lihat).</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_UI" value="A"><span
+                                    class="radio-btn">Active (A)</span><span class="option-desc">Korban melakukan cara
+                                    spesifik (mengetik sesuatu, dll).</span></label>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="metric-group">
+                    <h2>Vulnerable System Impact</h2>
+                    <p class="section-desc">Dampak kerentanan langsung terhadap sistem utama.</p>
+
+                    <!-- VC -->
+                    <div class="metric-item">
+                        <div class="metric-header">
+                            <h3>Confidentiality (VC) / Kerahasiaan</h3>
+                        </div>
+                        <div class="options-grid">
+                            <label class="radio-option"><input type="radio" name="v4_VC" value="N"><span
+                                    class="radio-btn">None (N)</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_VC" value="L"><span
+                                    class="radio-btn">Low (L)</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_VC" value="H"><span
+                                    class="radio-btn">High (H)</span></label>
+                        </div>
+                    </div>
+
+                    <!-- VI -->
+                    <div class="metric-item">
+                        <div class="metric-header">
+                            <h3>Integrity (VI) / Integritas</h3>
+                        </div>
+                        <div class="options-grid">
+                            <label class="radio-option"><input type="radio" name="v4_VI" value="N"><span
+                                    class="radio-btn">None (N)</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_VI" value="L"><span
+                                    class="radio-btn">Low (L)</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_VI" value="H"><span
+                                    class="radio-btn">High (H)</span></label>
+                        </div>
+                    </div>
+
+                    <!-- VA -->
+                    <div class="metric-item">
+                        <div class="metric-header">
+                            <h3>Availability (VA) / Ketersediaan</h3>
+                        </div>
+                        <div class="options-grid">
+                            <label class="radio-option"><input type="radio" name="v4_VA" value="N"><span
+                                    class="radio-btn">None (N)</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_VA" value="L"><span
+                                    class="radio-btn">Low (L)</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_VA" value="H"><span
+                                    class="radio-btn">High (H)</span></label>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="metric-group">
+                    <h2>Subsequent System Impact</h2>
+                    <p class="section-desc">Dampak jika menyebar ke sistem lain (Menggantikan metrik "Scope" di v3.1).
+                    </p>
+
+                    <!-- SC -->
+                    <div class="metric-item">
+                        <div class="metric-header">
+                            <h3>Confidentiality (SC)</h3>
+                        </div>
+                        <div class="options-grid">
+                            <label class="radio-option"><input type="radio" name="v4_SC" value="N"><span
+                                    class="radio-btn">None (N)</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_SC" value="L"><span
+                                    class="radio-btn">Low (L)</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_SC" value="H"><span
+                                    class="radio-btn">High (H)</span></label>
+                        </div>
+                    </div>
+
+                    <!-- SI -->
+                    <div class="metric-item">
+                        <div class="metric-header">
+                            <h3>Integrity (SI)</h3>
+                        </div>
+                        <div class="options-grid">
+                            <label class="radio-option"><input type="radio" name="v4_SI" value="N"><span
+                                    class="radio-btn">None (N)</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_SI" value="L"><span
+                                    class="radio-btn">Low (L)</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_SI" value="H"><span
+                                    class="radio-btn">High (H)</span></label>
+                        </div>
+                    </div>
+
+                    <!-- SA -->
+                    <div class="metric-item">
+                        <div class="metric-header">
+                            <h3>Availability (SA)</h3>
+                        </div>
+                        <div class="options-grid">
+                            <label class="radio-option"><input type="radio" name="v4_SA" value="N"><span
+                                    class="radio-btn">None (N)</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_SA" value="L"><span
+                                    class="radio-btn">Low (L)</span></label>
+                            <label class="radio-option"><input type="radio" name="v4_SA" value="H"><span
+                                    class="radio-btn">High (H)</span></label>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
             <div class="result-sidebar">
                 <div class="score-card" id="score-card">
-                    <h2 class="score-title">CVSS v3.1 Score</h2>
+                    <h2 class="score-title"><span id="version-label">CVSS v3.1</span> Score</h2>
                     <div class="score-value" id="score-value">0.0</div>
                     <div class="score-severity" id="score-severity">None</div>
-                    
+
                     <div class="vector-container">
                         <div class="vector-label">Vector String:</div>
                         <div class="vector-string" id="vector-string">CVSS:3.1/AV:_/AC:_/PR:_/UI:_/S:_/C:_/I:_/A:_</div>
                     </div>
-                    
+
                     <div class="instruction-text" id="instruction-text">
                         Pilih semua metrik di samping untuk melihat skor.
                     </div>
@@ -237,4 +454,5 @@
 
     <script type="module" src="js/main.js"></script>
 </body>
+
 </html>

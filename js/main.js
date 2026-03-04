@@ -1,4 +1,5 @@
 import { calculateCVSS } from './cvss.js';
+import { calculateCVSS4 } from './cvss4.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const radioInputs = document.querySelectorAll('input[type="radio"]');
@@ -8,8 +9,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const instructionText = document.getElementById('instruction-text');
     const scoreCard = document.getElementById('score-card');
 
-    // State to store current selected metrics
-    const currentMetrics = {};
+    // Toggle Elements
+    const btnV3 = document.getElementById('btn-v3');
+    const btnV4 = document.getElementById('btn-v4');
+    const containerV3 = document.getElementById('container-v3');
+    const containerV4 = document.getElementById('container-v4');
+    const versionLabel = document.getElementById('version-label');
+
+    // State to store current selected metrics for both versions
+    const currentMetricsV3 = {};
+    const currentMetricsV4 = {};
+    let activeVersion = 'v3'; // 'v3' or 'v4'
+
+    // Initial UI Setup: Make sure missing counts show up properly
+    updateUI();
 
     // Initialize radio listeners
     radioInputs.forEach(input => {
@@ -17,16 +30,50 @@ document.addEventListener('DOMContentLoaded', () => {
             const metricName = e.target.name;
             const metricValue = e.target.value;
 
-            // Update state
-            currentMetrics[metricName] = metricValue;
+            // Map to correct state based on prefix
+            if (metricName.startsWith('v4_')) {
+                const pureName = metricName.replace('v4_', '');
+                currentMetricsV4[pureName] = metricValue;
+            } else {
+                currentMetricsV3[metricName] = metricValue;
+            }
 
-            // Calculate new score
             updateUI();
         });
     });
 
+    // Toggle Listeners
+    btnV3.addEventListener('click', () => {
+        activeVersion = 'v3';
+        btnV3.classList.add('active');
+        btnV4.classList.remove('active');
+        containerV3.style.display = 'block';
+        containerV4.style.display = 'none';
+        versionLabel.textContent = 'CVSS v3.1';
+        updateUI();
+    });
+
+    btnV4.addEventListener('click', () => {
+        activeVersion = 'v4';
+        btnV4.classList.add('active');
+        btnV3.classList.remove('active');
+        containerV4.style.display = 'block';
+        containerV3.style.display = 'none';
+        versionLabel.textContent = 'CVSS v4.0';
+        updateUI();
+    });
+
     function updateUI() {
-        const result = calculateCVSS(currentMetrics);
+        let result;
+        let missingCount = 0;
+
+        if (activeVersion === 'v3') {
+            result = calculateCVSS(currentMetricsV3);
+            missingCount = 8 - Object.keys(currentMetricsV3).length;
+        } else {
+            result = calculateCVSS4(currentMetricsV4);
+            missingCount = 11 - Object.keys(currentMetricsV4).length;
+        }
 
         // Update Vector
         vectorString.textContent = result.vector;
@@ -45,9 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             // Still incomplete
             instructionText.style.display = 'block';
-
-            const missingCount = 8 - Object.keys(currentMetrics).length;
-            instructionText.textContent = `Masih ada ${missingCount} opsi dasar yang harus dipilih.`;
+            instructionText.textContent = `Masih ada opsi yang belum dipilih. (${missingCount} tersisa)`;
 
             scoreValue.textContent = '0.0';
             scoreSeverity.textContent = 'None';
