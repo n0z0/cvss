@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CVSS v3.1 Calculator for Beginners</title>
+    <meta name="description" content="A beginner-friendly Common Vulnerability Scoring System (CVSS) v3.1 calculator to help you understand vulnerability severity.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>CVSS v3.1 Calculator</h1>
+            <p>Pelajari cara menghitung tingkat keparahan celah keamanan (kerentanan) dengan mudah.</p>
+        </header>
+
+        <main class="calculator-grid">
+            <div class="metrics-container">
+                <!-- Base Metrics Group -->
+                <section class="metric-group">
+                    <h2>Base Metrics (Metrik Dasar)</h2>
+                    <p class="section-desc">Karakteristik kerentanan yang konstan seiring waktu dan lingkungan pengguna.</p>
+
+                    <!-- Attack Vector -->
+                    <div class="metric-item" id="metric-av">
+                        <div class="metric-header">
+                            <h3>Attack Vector (AV) / Vektor Serangan</h3>
+                            <button class="info-btn" aria-label="Info" data-tooltip="Dari mana kerentanan ini bisa dieksploitasi? Semakin jauh (Network), semakin parah.">?</button>
+                        </div>
+                        <div class="options-grid">
+                            <label class="radio-option">
+                                <input type="radio" name="AV" value="N">
+                                <span class="radio-btn">Network (N)</span>
+                                <span class="option-desc">Bisa diserang dari internet/jaringan luar.</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="AV" value="A">
+                                <span class="radio-btn">Adjacent (A)</span>
+                                <span class="option-desc">Harus berada di jaringan yang sama (misal: WiFi yang sama).</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="AV" value="L">
+                                <span class="radio-btn">Local (L)</span>
+                                <span class="option-desc">Harus punya akses ke sistem secara lokal (keyboard/shell).</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="AV" value="P">
+                                <span class="radio-btn">Physical (P)</span>
+                                <span class="option-desc">Harus menyentuh perangkat secara fisik.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Attack Complexity -->
+                    <div class="metric-item" id="metric-ac">
+                        <div class="metric-header">
+                            <h3>Attack Complexity (AC) / Kompleksitas Serangan</h3>
+                            <button class="info-btn" aria-label="Info" data-tooltip="Seberapa sulit atau butuh kondisi khusus untuk menyerang?">?</button>
+                        </div>
+                        <div class="options-grid">
+                            <label class="radio-option">
+                                <input type="radio" name="AC" value="L">
+                                <span class="radio-btn">Low (L)</span>
+                                <span class="option-desc">Mudah, tidak butuh kondisi khusus.</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="AC" value="H">
+                                <span class="radio-btn">High (H)</span>
+                                <span class="option-desc">Sulit, butuh kondisi khusus atau persiapan matang.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Privileges Required -->
+                    <div class="metric-item" id="metric-pr">
+                        <div class="metric-header">
+                            <h3>Privileges Required (PR) / Hak Akses</h3>
+                            <button class="info-btn" aria-label="Info" data-tooltip="Apakah penyerang butuh akun khusus sebelum menyerang?">?</button>
+                        </div>
+                        <div class="options-grid">
+                            <label class="radio-option">
+                                <input type="radio" name="PR" value="N">
+                                <span class="radio-btn">None (N)</span>
+                                <span class="option-desc">Tidak butuh akun, siapa saja bisa.</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="PR" value="L">
+                                <span class="radio-btn">Low (L)</span>
+                                <span class="option-desc">Butuh akun user biasa.</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="PR" value="H">
+                                <span class="radio-btn">High (H)</span>
+                                <span class="option-desc">Butuh akun admin/root.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- User Interaction -->
+                    <div class="metric-item" id="metric-ui">
+                        <div class="metric-header">
+                            <h3>User Interaction (UI) / Interaksi Pengguna</h3>
+                            <button class="info-btn" aria-label="Info" data-tooltip="Apakah penyerang butuh korban untuk mengklik sesuatu?">?</button>
+                        </div>
+                        <div class="options-grid">
+                            <label class="radio-option">
+                                <input type="radio" name="UI" value="N">
+                                <span class="radio-btn">None (N)</span>
+                                <span class="option-desc">Otomatis, tanpa interaksi korban.</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="UI" value="R">
+                                <span class="radio-btn">Required (R)</span>
+                                <span class="option-desc">Korban harus mengklik link atau membuka file.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Scope -->
+                    <div class="metric-item" id="metric-s">
+                        <div class="metric-header">
+                            <h3>Scope (S) / Lingkup</h3>
+                            <button class="info-btn" aria-label="Info" data-tooltip="Apakah kerentanan di satu komponen bisa merusak komponen lain (misal: dari VM ke Host)?">?</button>
+                        </div>
+                        <div class="options-grid">
+                            <label class="radio-option">
+                                <input type="radio" name="S" value="U">
+                                <span class="radio-btn">Unchanged (U)</span>
+                                <span class="option-desc">Hanya berdampak pada komponen itu sendiri.</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="S" value="C">
+                                <span class="radio-btn">Changed (C)</span>
+                                <span class="option-desc">Bisa menyebar ke komponen lain.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Confidentiality -->
+                    <div class="metric-item" id="metric-c">
+                        <div class="metric-header">
+                            <h3>Confidentiality (C) / Kerahasiaan</h3>
+                            <button class="info-btn" aria-label="Info" data-tooltip="Seberapa parah kebocoran data yang terjadi?">?</button>
+                        </div>
+                        <div class="options-grid">
+                            <label class="radio-option">
+                                <input type="radio" name="C" value="N">
+                                <span class="radio-btn">None (N)</span>
+                                <span class="option-desc">Tidak ada data bocor.</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="C" value="L">
+                                <span class="radio-btn">Low (L)</span>
+                                <span class="option-desc">Beberapa data bocor, tapi tidak semuanya kritis.</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="C" value="H">
+                                <span class="radio-btn">High (H)</span>
+                                <span class="option-desc">Semua data penting bocor.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Integrity -->
+                    <div class="metric-item" id="metric-i">
+                        <div class="metric-header">
+                            <h3>Integrity (I) / Integritas</h3>
+                            <button class="info-btn" aria-label="Info" data-tooltip="Seberapa parah penyerang bisa mengubah data?">?</button>
+                        </div>
+                        <div class="options-grid">
+                            <label class="radio-option">
+                                <input type="radio" name="I" value="N">
+                                <span class="radio-btn">None (N)</span>
+                                <span class="option-desc">Tidak bisa mengubah data.</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="I" value="L">
+                                <span class="radio-btn">Low (L)</span>
+                                <span class="option-desc">Bisa mengubah sebagian data.</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="I" value="H">
+                                <span class="radio-btn">High (H)</span>
+                                <span class="option-desc">Bisa mengubah semua data.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Availability -->
+                    <div class="metric-item" id="metric-a">
+                        <div class="metric-header">
+                            <h3>Availability (A) / Ketersediaan</h3>
+                            <button class="info-btn" aria-label="Info" data-tooltip="Apakah penyerang bisa membuat sistem mati atau tidak bisa diakses?">?</button>
+                        </div>
+                        <div class="options-grid">
+                            <label class="radio-option">
+                                <input type="radio" name="A" value="N">
+                                <span class="radio-btn">None (N)</span>
+                                <span class="option-desc">Sistem tetap hidup normal.</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="A" value="L">
+                                <span class="radio-btn">Low (L)</span>
+                                <span class="option-desc">Sistem melambat sesaat.</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="A" value="H">
+                                <span class="radio-btn">High (H)</span>
+                                <span class="option-desc">Sistem mati total dan tidak bisa diakses.</span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="result-sidebar">
+                <div class="score-card" id="score-card">
+                    <h2 class="score-title">CVSS v3.1 Score</h2>
+                    <div class="score-value" id="score-value">0.0</div>
+                    <div class="score-severity" id="score-severity">None</div>
+                    
+                    <div class="vector-container">
+                        <div class="vector-label">Vector String:</div>
+                        <div class="vector-string" id="vector-string">CVSS:3.1/AV:_/AC:_/PR:_/UI:_/S:_/C:_/I:_/A:_</div>
+                    </div>
+                    
+                    <div class="instruction-text" id="instruction-text">
+                        Pilih semua metrik di samping untuk melihat skor.
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
